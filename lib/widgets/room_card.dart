@@ -3,9 +3,9 @@ import 'package:app/screens/room_screen.dart';
 import 'package:app/utils/screen_pusher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mjpeg/flutter_mjpeg.dart';
 
 class RoomCard extends StatelessWidget {
-
   final Room room;
 
   const RoomCard({Key? key, required this.room}) : super(key: key);
@@ -28,6 +28,10 @@ class RoomCard extends StatelessWidget {
                     topLeft: Radius.circular(5),
                     topRight: Radius.circular(5),
                   ),
+                ),
+                child: const Mjpeg(
+                  isLive: true,
+                  stream: "http://192.168.70.185:8080/video", // TODO: Not hardcode this
                 ),
               ),
             ),
