@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:app/handlers/hub_handler.dart';
-import 'package:app/screens/room_screen.dart';
 import 'package:app/utils/screen_pusher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +17,11 @@ class _HubListScreenState extends State<HubListScreen> {
   @override
   void initState() {
     super.initState();
-    // TODO: Load hubs? idk
+  }
+
+  void _removeHub(int index) {
+    HubHandler.removeHubAtIndex(index);
+    // TODO; actually remove it
   }
 
   @override
@@ -37,23 +38,43 @@ class _HubListScreenState extends State<HubListScreen> {
       body: ListView.builder(
         itemCount: HubHandler.hubs.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(HubHandler.hubs[index].title),
-            onTap: () => {
-              ScreenPusher.pushScreen(
-                context,
-                HubScreen(
-                  hub: HubHandler.hubs[index],
-                ),
-              ),
+          return Dismissible(
+            direction: DismissDirection.endToStart,
+            resizeDuration: const Duration(milliseconds: 200),
+            key: ObjectKey(index),
+            onDismissed: (direction) {
+              _removeHub(index);
             },
+            background: Container(
+              padding: const EdgeInsets.only(left: 28.0),
+              alignment: AlignmentDirectional.centerEnd,
+              color: Colors.red,
+              child: const Icon(
+                Icons.delete_forever,
+                color: Colors.white,
+              ),
+            ),
+            // secondaryBackground: ...,
+            child: ListTile(
+              title: Text(HubHandler.hubs[index].title),
+              onTap: () => {
+                ScreenPusher.pushScreen(
+                  context,
+                  HubScreen(
+                    hub: HubHandler.hubs[index],
+                  ),
+                ),
+              },
+            ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         onPressed: () {
-          Navigator.pop(context);
           ScreenPusher.pushScreen(context, const HubAddScreen());
         },
       ),

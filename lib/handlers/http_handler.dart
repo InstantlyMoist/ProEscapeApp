@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:app/models/room.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,7 +9,7 @@ class HTTPHandler {
     var json = jsonDecode(response.body);
     List<Room> rooms = [];
     json.keys.forEach((roomKey) {
-      rooms.add(Room(title: json[roomKey]['title']));
+      rooms.add(Room.fromJson(json[roomKey]));
     });
     return rooms;
   }

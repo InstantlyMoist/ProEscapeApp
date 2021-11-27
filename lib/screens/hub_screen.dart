@@ -24,6 +24,17 @@ class _HubScreenState extends State<HubScreen> {
     _rooms = await HTTPHandler.getRooms(widget.hub.ip);
   }
 
+  Future<List<Room>> _getRooms() async {
+    return await HTTPHandler.getRooms(widget.hub.ip);
+  }
+
+  Future<void> _refresh() async {
+    List<Room> rooms = await _getRooms();
+    setState(() {
+      _rooms = rooms;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,15 +60,19 @@ class _HubScreenState extends State<HubScreen> {
           future: _loadRooms(),
           builder: (context, AsyncSnapshot snapshot) {
             print("Has data?" + snapshot.hasData.toString());
+            print(_rooms);
             if (_rooms.isEmpty) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              return ListView.builder(
-                itemCount: _rooms.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (BuildContext context, int index) {
-                  return RoomCard(room: _rooms[index]);
-                },
+              return RefreshIndicator(
+                onRefresh: _refresh,
+                child: ListView.builder(
+                  itemCount: _rooms.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (BuildContext context, int index) {
+                    return RoomCard(room: _rooms[index]);
+                  },
+                ),
               );
             }
           },

@@ -26,6 +26,11 @@ class HubHandler {
   static void removeHub(Hub hub) {
     print("Removing hub " + hub.toString());
     _hubs.remove(hub);
+    _save();
+  }
+
+  static void removeHubAtIndex(int index) {
+    removeHub(hubs[index]);
   }
 
   static void _save() {
