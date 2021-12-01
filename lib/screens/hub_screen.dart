@@ -70,7 +70,7 @@ class _HubScreenState extends State<HubScreen> {
                   itemCount: _rooms.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (BuildContext context, int index) {
-                    return RoomCard(room: _rooms[index]);
+                    return RoomCard(hub: widget.hub, room: _rooms[index]);
                   },
                 ),
               );

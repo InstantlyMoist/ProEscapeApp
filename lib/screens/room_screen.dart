@@ -1,3 +1,5 @@
+import 'package:app/handlers/http_handler.dart';
+import 'package:app/models/hub.dart';
 import 'package:app/models/room.dart';
 import 'package:app/widgets/camera_carousel_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -6,11 +8,13 @@ import 'package:flutter/material.dart';
 
 class RoomScreen extends StatefulWidget {
   final Room room;
+  final Hub hub;
 
   @override
   State<RoomScreen> createState() => _RoomScreenState();
 
-  const RoomScreen({Key? key, required this.room}) : super(key: key);
+  const RoomScreen({Key? key, required this.hub, required this.room})
+      : super(key: key);
 }
 
 class _RoomScreenState extends State<RoomScreen> {
@@ -64,6 +68,11 @@ class _RoomScreenState extends State<RoomScreen> {
             Text("runningStateL " + widget.room.runningState.toString()),
             Text("progress " + widget.room.progress.toString()),
             Text("puzzles " + widget.room.puzzles.toString()),
+            ElevatedButton(
+                onPressed: () => {
+                      HTTPHandler.startAllPuzzles(widget.hub.ip, widget.room),
+                    },
+                child: const Text("Start alle puzzels")),
           ],
         ),
       ),

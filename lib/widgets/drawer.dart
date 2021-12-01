@@ -19,7 +19,7 @@ class NavDrawer extends StatelessWidget {
                 color: Colors.orange,
                 image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage('assets/images/cover.jpg'))),
+                    image: AssetImage('assets/images/logo_light.jpg'))),
           ),
           ListTile(
             leading: const Icon(Icons.dashboard),
