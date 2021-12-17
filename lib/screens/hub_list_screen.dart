@@ -20,7 +20,10 @@ class _HubListScreenState extends State<HubListScreen> {
   }
 
   void _removeHub(int index) {
-    HubHandler.removeHubAtIndex(index);
+    setState(() {
+      HubHandler.removeHubAtIndex(index);
+    });
+
     // TODO; actually remove it
   }
 
@@ -41,7 +44,7 @@ class _HubListScreenState extends State<HubListScreen> {
           return Dismissible(
             direction: DismissDirection.endToStart,
             resizeDuration: const Duration(milliseconds: 200),
-            key: ObjectKey(index),
+            key: UniqueKey(),
             onDismissed: (direction) {
               _removeHub(index);
             },

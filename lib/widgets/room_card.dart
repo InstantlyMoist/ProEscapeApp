@@ -38,30 +38,43 @@ class _RoomCardState extends State<RoomCard> {
               children: [
                 Expanded(
                   flex: 4,
-                  child: Mjpeg(
-                    error: (context, error, stack) {
-                      return Ink(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).hintColor.withAlpha(50),
-                            width: 1,
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Theme.of(context).hintColor.withAlpha(50),
+                        width: 1,
+                      ),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        topRight: Radius.circular(5),
+                      ),
+                    ),
+                    child: Mjpeg(
+                      error: (context, error, stack) {
+                        return Ink(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).hintColor.withAlpha(50),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5),
+                            ),
+                            image: const DecorationImage(
+                              image: ExactAssetImage(
+                                  'assets/images/escape_room_placeholder.jpg'),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            topRight: Radius.circular(5),
-                          ),
-                          image: const DecorationImage(
-                            image: ExactAssetImage(
-                                'assets/images/escape_room_placeholder.jpg'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-                    },
-                    isLive: true,
-                    stream:
-                        "http://192.168.70.185:8080/video", // TODO: Not hardcode this
+                        );
+                      },
+                      isLive: true,
+                      stream:
+                          "http://192.168.70.185:8080/video", // TODO: Not hardcode this
+                    ),
                   ),
                 ),
                 Expanded(
@@ -74,16 +87,15 @@ class _RoomCardState extends State<RoomCard> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border(
-                                left: BorderSide(
-                                    color: Theme.of(context)
-                                        .hintColor
-                                        .withAlpha(50),
-                                    width: 1),
-                                right: BorderSide(
-                                    color: Theme.of(context)
-                                        .hintColor
-                                        .withAlpha(50),
-                                    width: 1)),
+                              left: BorderSide(
+                                  color:
+                                      Theme.of(context).hintColor.withAlpha(50),
+                                  width: 1),
+                              right: BorderSide(
+                                  color:
+                                      Theme.of(context).hintColor.withAlpha(50),
+                                  width: 1),
+                            ),
                           ),
                           child: Padding(
                             padding:
@@ -105,49 +117,46 @@ class _RoomCardState extends State<RoomCard> {
                           ),
                         ),
                       ),
-                      AnimatedContainer(
-                        duration: Duration(seconds: 1),
-                        child: Ink(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(5),
-                              bottomRight: Radius.circular(5),
-                            ),
-                            border: Border.all(
-                              color: Theme.of(context).hintColor.withAlpha(50),
-                              width: 1,
-                            ),
+                      Ink(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(5),
+                            bottomRight: Radius.circular(5),
                           ),
-                          height: 24,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: widget.room.progress,
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(5),
-                                      bottomRight: Radius.circular(5),
-                                    ),
+                          border: Border.all(
+                            color: Theme.of(context).hintColor.withAlpha(50),
+                            width: 1,
+                          ),
+                        ),
+                        height: 24,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: widget.room.progress,
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(5),
+                                    bottomRight: Radius.circular(5),
                                   ),
                                 ),
                               ),
-                              Expanded(
-                                flex: 100 - widget.room.progress,
-                                child: Ink(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(5),
-                                      bottomRight: Radius.circular(5),
-                                    ),
+                            ),
+                            Expanded(
+                              flex: 100 - widget.room.progress,
+                              child: Ink(
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(5),
+                                    bottomRight: Radius.circular(5),
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ],
